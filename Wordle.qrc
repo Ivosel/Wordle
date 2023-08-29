@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Wordle">
+        <file>WordSet.txt</file>
+    </qresource>
+</RCC>
