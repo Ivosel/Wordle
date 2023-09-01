@@ -146,6 +146,11 @@ void Wordle::SetUpGame(int difficulty)
 
 void Wordle::onNewGameTriggered()
 {
+	// Handle class destruction
+	delete m_newGame;
+	delete m_customGrid;
+	delete m_letterGrid;
+
 	SetUpSelectionScreen();
 }
 

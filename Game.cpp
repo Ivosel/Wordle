@@ -6,7 +6,8 @@ Game::Game(int difficulty)
 }
 
 Game::~Game()
-{}
+{
+}
 
 void Game::selectWord(int difficulty)
 {
