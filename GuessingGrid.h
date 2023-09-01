@@ -4,17 +4,16 @@
 #include <QGridLayout>
 #include <qevent.h>
 #include <qmessagebox.h>
-#include "MyLabel.h"
 #include "Game.h"
 #include "KeyboardGrid.h"
 
-class MyGrid : public QWidget
+class GuessingGrid : public QWidget
 {
 	Q_OBJECT
 
 public:
-	MyGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent = nullptr);
-	~MyGrid();
+	GuessingGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent = nullptr);
+	~GuessingGrid();
 
 signals:
 	void yesClicked();
@@ -28,7 +27,7 @@ private:
 	QGridLayout* m_layout;
 	Game* m_gameInstance;
 	KeyboardGrid* m_letterGrid;
-	std::vector<std::vector<MyLabel*>> m_labels;
+	std::vector<std::vector<QLabel*>> m_labels;
 
 	int m_numColumns;
 	int m_numRows;

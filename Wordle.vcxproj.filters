@@ -40,10 +40,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyLabel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MyGrid.cpp">
+    <ClCompile Include="GuessingGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardGrid.cpp">
@@ -54,10 +51,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MyLabel.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="MyGrid.h">
+    <QtMoc Include="GuessingGrid.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="KeyboardGrid.h">

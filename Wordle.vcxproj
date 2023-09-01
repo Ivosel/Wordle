@@ -88,16 +88,12 @@
     <QtMoc Include="Wordle.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="KeyboardGrid.cpp" />
-    <ClCompile Include="MyGrid.cpp" />
-    <ClCompile Include="MyLabel.cpp" />
+    <ClCompile Include="GuessingGrid.cpp" />
     <ClCompile Include="Wordle.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="MyLabel.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="MyGrid.h" />
+    <QtMoc Include="GuessingGrid.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="KeyboardGrid.h" />

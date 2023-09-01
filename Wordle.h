@@ -6,7 +6,7 @@
 #include "ui_Wordle.h"
 #include "Game.h"
 #include "KeyboardGrid.h"
-#include "MyGrid.h"
+#include "GuessingGrid.h"
 #include "Styles.h"
 
 class Wordle : public QMainWindow
@@ -31,6 +31,6 @@ private:
 
 	Ui::WordleClass ui;
 	Game* m_newGame;
-	MyGrid* m_customGrid;
+	GuessingGrid* m_customGrid;
 	KeyboardGrid* m_letterGrid;
 };

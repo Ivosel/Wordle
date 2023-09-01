@@ -1,14 +1,14 @@
-#include "MyGrid.h"
+#include "GuessingGrid.h"
 
-MyGrid::MyGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent)
+GuessingGrid::GuessingGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent)
 	: QWidget(parent), m_gameInstance(gameInstance), m_letterGrid(letterGrid), m_numColumns(numColumns),
 	m_numRows(6), m_currentRow(0), m_currentCol(0)
 {
 	m_layout = new QGridLayout(this);
-	m_labels.resize(m_numRows, std::vector<MyLabel*>(m_numColumns));
+	m_labels.resize(m_numRows, std::vector<QLabel*>(m_numColumns));
 	createLabels();
 
-	// Set the size of MyGrid widget
+	// Set the size of GuessingGrid widget
 	int totalWidth = m_numColumns * 60;
 	setFixedWidth(totalWidth);
 	m_layout->setHorizontalSpacing(5);
@@ -17,22 +17,25 @@ MyGrid::MyGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWi
 	setLayout(m_layout);
 }
 
-MyGrid::~MyGrid()
+GuessingGrid::~GuessingGrid()
 {}
 
-void MyGrid::createLabels()
+void GuessingGrid::createLabels()
 {
 	// Create and add labels to the layout and the vector
 	for (int row = 0; row < m_numRows; ++row) {
 		for (int col = 0; col < m_numColumns; ++col) {
-			MyLabel* label = new MyLabel("", row, col);
+			QLabel* label = new QLabel("");
+			label->setStyleSheet(DEFAULT_LABEL);
+			label->setFixedSize(50, 50);
+			label->setAlignment(Qt::AlignCenter);
 			m_labels[row][col] = label;
 			m_layout->addWidget(label, row, col);
 		}
 	}
 }
 
-void MyGrid::keyPressEvent(QKeyEvent* event)
+void GuessingGrid::keyPressEvent(QKeyEvent* event)
 {
 	// Get the pressed key
 	QString key = event->text();
@@ -41,7 +44,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 	if (key.length() == 1 && key.at(0).isLetter()) {
 		if (m_currentRow < m_labels.size() && m_currentCol < m_labels[0].size()) {
 			// Set the letter in the current label
-			MyLabel* currentLabel = m_labels[m_currentRow][m_currentCol];
+			QLabel* currentLabel = m_labels[m_currentRow][m_currentCol];
 			currentLabel->setText(key);
 
 			// Move cursor to the next label within the same row
@@ -53,7 +56,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 
 			// Update focus to the next label
 			if (m_currentCol >= 0 && m_currentCol < m_labels[0].size()) {
-				MyLabel* nextLabel = m_labels[m_currentRow][m_currentCol];
+				QLabel* nextLabel = m_labels[m_currentRow][m_currentCol];
 				nextLabel->setFocus();
 			}
 		}
@@ -62,14 +65,14 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 	// Check if the Backspace key was pressed
 	else if (event->key() == Qt::Key_Backspace) {
 		if (m_currentRow < m_labels.size() && m_currentCol >= 0) {
-			MyLabel* currentLabel = m_labels[m_currentRow][m_currentCol];
+			QLabel* currentLabel = m_labels[m_currentRow][m_currentCol];
 
 			// Check if the text in the current label contains a letter
 			if (currentLabel->text().isEmpty() || !currentLabel->text().at(0).isLetter()) {
 				// Clear the text in the previous label and move focus to it
 				if (m_currentCol > 0) {
 					m_currentCol--;
-					MyLabel* prevLabel = m_labels[m_currentRow][m_currentCol];
+					QLabel* prevLabel = m_labels[m_currentRow][m_currentCol];
 					prevLabel->clear();
 					prevLabel->setFocus();
 				}
@@ -86,7 +89,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 
 		// Create players guess string and read the current row labels contents to it
 		QString guess;
-		for (const MyLabel* label : m_labels[m_currentRow]) {
+		for (const QLabel* label : m_labels[m_currentRow]) {
 			QString labelText = label->text();
 			labelText = labelText.trimmed();
 			if (!labelText.isEmpty()) {
@@ -141,18 +144,18 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 
 		// Update focus to the next label
 		if (m_currentRow < m_labels.size() && m_currentCol < m_labels[0].size()) {
-			MyLabel* nextLabel = m_labels[m_currentRow][m_currentCol];
+			QLabel* nextLabel = m_labels[m_currentRow][m_currentCol];
 			nextLabel->setFocus();
 		}
 	}
 }
 
-void MyGrid::updateLabelBackgroundColors(const QString& guess) {
+void GuessingGrid::updateLabelBackgroundColors(const QString& guess) {
 	const QString selectedWord = m_gameInstance->m_selectedWord.toLower();
 
 	// Iterate the letters of the player's guess and the game's word to update the label appearance in the grid
 	for (int i = 0; i < selectedWord.length(); ++i) {
-		MyLabel* label = m_labels[m_currentRow][i];
+		QLabel* label = m_labels[m_currentRow][i];
 
 		if (i < guess.length()) {
 			QChar selectedChar = selectedWord.at(i);

@@ -36,11 +36,15 @@ void Wordle::SetUpSelectionScreen()
 	connect(hardButton, &QPushButton::clicked, this, &Wordle::onHardClicked);
 
 	// Create labels for legend
-	MyLabel* label1 = new MyLabel("W", 0, 0, this);
-	MyLabel* label2 = new MyLabel("W", 1, 0, this);
+	QLabel* label1 = new QLabel("W", this);
+	label1->setStyleSheet(DEFAULT_LABEL);
+	label1->setFixedSize(50, 50);
+	QLabel* label2 = new QLabel("W", this);
 	label2->setStyleSheet(CORRECT_LETTER_LABEL);
-	MyLabel* label3 = new MyLabel("W", 2, 0, this);
+	label2->setFixedSize(50, 50);
+	QLabel* label3 = new QLabel("W", this);
 	label3->setStyleSheet(CORRECT_POSITION_LABEL);
+	label3->setFixedSize(50, 50);
 
 	// Create descriptions for legend labels
 	QLabel* description1 = new QLabel("Wrong Letter", this);
@@ -111,10 +115,10 @@ void Wordle::SetUpGame(int difficulty)
 
 	m_letterGrid = new KeyboardGrid;
 
-	// Create an instance of MyGrid and connect signals from the grids msgBox to slots
-	m_customGrid = new MyGrid(m_newGame, m_letterGrid, m_newGame->m_selectedWord.length());
-	connect(m_customGrid, &MyGrid::yesClicked, this, &Wordle::onNewGameTriggered);
-	connect(m_customGrid, &MyGrid::noClicked, this, &Wordle::onExitTriggered);
+	// Create an instance of GuessingGrid and connect signals from the grids msgBox to slots
+	m_customGrid = new GuessingGrid(m_newGame, m_letterGrid, m_newGame->m_selectedWord.length());
+	connect(m_customGrid, &GuessingGrid::yesClicked, this, &Wordle::onNewGameTriggered);
+	connect(m_customGrid, &GuessingGrid::noClicked, this, &Wordle::onExitTriggered);
 
 	// Set the size of the main window
 	int gridSize = m_customGrid->width();
