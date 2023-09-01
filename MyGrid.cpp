@@ -104,7 +104,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 
 		// Call checkGuess to determine the game outcome
 		switch (m_gameInstance->checkGuess(guess)) {
-		case 0: // Set the dialog for player vicotry
+		case Game::CorrectGuess: // Set the dialog for player vicotry
 			m_letterGrid->updateButtons(guess);
 			updateLabelBackgroundColors(guess);
 			msgBox.setText("Start a new game?");
@@ -119,7 +119,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 				emit noClicked();
 			}
 			break;
-		case 1: // Set the dialog for player defeat
+		case Game::LastChanceWrongGuess: // Set the dialog for player defeat
 			m_letterGrid->updateButtons(guess);
 			updateLabelBackgroundColors(guess);
 			if (m_currentRow == 5) {

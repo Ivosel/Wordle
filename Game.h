@@ -10,10 +10,16 @@
 class Game
 {
 public:
+	enum GuessResult {
+		CorrectGuess,
+		LastChanceWrongGuess,
+		InvalidGuess
+	};
+
 	Game(int difficulty);
 	~Game();
 	void selectWord(int difficulty);
-	int checkGuess(const QString& guess);
+	GuessResult checkGuess(const QString& guess);
 	QString m_selectedWord;
 
 private:
