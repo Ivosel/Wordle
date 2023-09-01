@@ -113,6 +113,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 
 			if (reply == QMessageBox::Yes) {
 				emit yesClicked();
+				return;
 			}
 			else if (reply == QMessageBox::No) {
 				emit noClicked();
@@ -127,6 +128,7 @@ void MyGrid::keyPressEvent(QKeyEvent* event)
 				reply = msgBox.exec();
 				if (reply == QMessageBox::Yes) {
 					emit yesClicked();
+					return;
 				}
 				else if (reply == QMessageBox::No) {
 					emit noClicked();

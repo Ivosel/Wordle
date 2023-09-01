@@ -13,23 +13,21 @@ KeyboardGrid::~KeyboardGrid()
 
 void KeyboardGrid::createButtons()
 {
-	m_alphabet = QStringList() << "Q" << "W" << "E" << "R" << "T" << "Z" << "U" << "I" << "O" << "P" <<
-		"A" << "S" << "D" << "F" << "G" << "H" << "J" << "K" << "L" <<
-		"Y" << "X" << "C" << "V" << "B" << "N" << "M";
-
 	int row = 0;
 	int col = 0;
+	QString keyboardLetters = "QWERTZUIOPASDFGHJKLYXCVBNM";
 
 	// Create buttons representing the keyboard, add them to the layout and the button list member
-	for (const QString& letter : m_alphabet) {
-		QPushButton* button = new QPushButton(letter);
-		m_letterButtons.append(button);
-		m_layout->addWidget(button, row, col);
-		button->setFixedSize(40, 40);
-		button->setEnabled(false);
+	for (auto c : keyboardLetters) {
+		QLabel* label = new QLabel(c);
+		m_letterLabels.append(label);
+		m_layout->addWidget(label, row, col);
+		label->setFixedSize(40, 40);
+		label->setAlignment(Qt::AlignCenter);
+		label->setStyleSheet(AVAILABLE_LETTER_LABEL);
 
 		col++;
-		if (button->text() == "P" || button->text() == "L") {
+		if (label->text() == "P" || label->text() == "L") {
 			col = 0;
 			row++;
 		}
@@ -39,9 +37,9 @@ void KeyboardGrid::createButtons()
 void KeyboardGrid::updateButtons(QString guess)
 {
 	// Update the appearance of the buttons representing the keyboard if they have been used in a player's guess
-	for (QPushButton* button : m_letterButtons) {
-		if (guess.contains(button->text().toLower())) {
-			button->setStyleSheet(USED_LETTER_BUTTON);
-		}
+	QString keyboardLetters = "qwertzuiopasdfghjklyxcvbnm";
+
+	for (int i = 0; i < keyboardLetters.length(); ++i) {
+		if (guess.contains(keyboardLetters[i])) m_letterLabels[i]->setStyleSheet(USED_LETTER_LABEL);
 	}
 }

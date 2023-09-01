@@ -24,8 +24,11 @@
 								font-size: 35px; 
 								background: green;)"
 
-#define USED_LETTER_BUTTON R"(background-color: gray; 
-							border: none;)"
+#define AVAILABLE_LETTER_LABEL R"(background-color: lightgray; 
+							border: 1px solid black;)"
+
+#define USED_LETTER_LABEL R"(background-color: gray; 
+							border: 1px solid black;)"
 
 #define TITLE_TEXT R"(font-family: Courier, monospace; 
 					font-size: 90px; 

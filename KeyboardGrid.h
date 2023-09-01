@@ -2,7 +2,7 @@
 
 #include <QWidget>
 #include <QGridLayout>
-#include <QPushButton>
+#include <Qlabel>
 #include "Styles.h"
 
 class KeyboardGrid : public QWidget
@@ -18,6 +18,5 @@ private:
 	void createButtons();
 
 	QGridLayout* m_layout;
-	QStringList m_alphabet;
-	QList<QPushButton*> m_letterButtons;
+	QList<QLabel*> m_letterLabels;
 };
