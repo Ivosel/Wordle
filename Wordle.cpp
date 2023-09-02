@@ -145,6 +145,8 @@ void Wordle::SetUpGame(Difficulty diff)
 void Wordle::onNewGameTriggered()
 {
 	// Handle class destruction
+	disconnect(m_customGrid, &GuessingGrid::yesClicked, this, &Wordle::onNewGameTriggered);
+	disconnect(m_customGrid, &GuessingGrid::noClicked, this, &Wordle::onExitTriggered);
 	delete m_newGame;
 	delete m_customGrid;
 	delete m_letterGrid;

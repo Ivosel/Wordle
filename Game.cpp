@@ -62,7 +62,7 @@ Game::GuessResult Game::checkGuess(const QString& guess)
 {
 	// Compare the player's guess with the selected word
 	if (!m_filteredWords.contains(guess)) return InvalidGuess;
-	else if (!(guess.toLower() == m_selectedWord)) return LastChanceWrongGuess;
+	else if (!(guess.toLower() == m_selectedWord)) return WrongGuess;
 	else return CorrectGuess;
 }
 

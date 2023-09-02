@@ -24,6 +24,14 @@ private:
 	void createLabels();
 	void updateLabelBackgroundColors(const QString& guess);
 	void keyPressEvent(QKeyEvent* event);
+	void handleLetterKey(QString key);
+	void handleBackspaceKey();
+	void handleEnterKey();
+	QString createGuessFromLabels();
+	void handleCorrectGuess(QString guess);
+	void handleLastChanceWrongGuess(QString guess);
+	void handleWrongGuess(QString guess);
+	void updateFocus();
 
 	QGridLayout* m_layout;
 	Game* m_gameInstance;

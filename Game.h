@@ -13,7 +13,7 @@ class Game
 public:
 	enum GuessResult {
 		CorrectGuess,
-		LastChanceWrongGuess,
+		WrongGuess,
 		InvalidGuess
 	};
 
