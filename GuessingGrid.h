@@ -6,6 +6,7 @@
 #include <qmessagebox.h>
 #include "Game.h"
 #include "KeyboardGrid.h"
+#include "Constants.h"
 
 class GuessingGrid : public QWidget
 {

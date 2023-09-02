@@ -1,27 +1,31 @@
 #include "Game.h"
 
-Game::Game(int difficulty)
+using namespace WordleConstants;
+
+Game::Game(Difficulty diff)
 {
-	selectWord(difficulty);
+	selectWord(diff);
 }
 
 Game::~Game()
 {
 }
 
-void Game::selectWord(int difficulty)
+void Game::selectWord(Difficulty diff)
 {
 	// Define the word length ranges for each difficulty level
 	int minLength = 0;
 	int maxLength = 0;
-	if (difficulty == 4) {
+
+	switch (diff) {
+	case Easy:
 		maxLength = 4;
-	}
-	else if (difficulty == 6) {
+		break;
+	case Medium:
 		minLength = 5;
 		maxLength = 6;
-	}
-	else if (difficulty == 8) {
+		break;
+	case Hard:
 		minLength = 7;
 		maxLength = 1000;
 	}

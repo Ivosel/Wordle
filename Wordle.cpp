@@ -1,6 +1,6 @@
 #include "Wordle.h"
 
-
+using namespace WordleConstants;
 
 Wordle::Wordle(QWidget* parent)
 	: QMainWindow(parent)
@@ -20,15 +20,15 @@ Wordle::~Wordle()
 
 void Wordle::SetUpSelectionScreen()
 {
-	setFixedSize(QSize(800, 600));
+	setFixedSize(QSize(WindowWidth, WindowHeight));
 
 	// Create buttons for selecting game difficulty
 	QPushButton* easyButton = new QPushButton("Easy (up to 4 letters)", this);
 	QPushButton* mediumButton = new QPushButton("Medium (5-6 letters)", this);
 	QPushButton* hardButton = new QPushButton("Hard (7 or more letters)", this);
-	easyButton->setFixedSize(300, 50);
-	mediumButton->setFixedSize(300, 50);
-	hardButton->setFixedSize(300, 50);
+	easyButton->setFixedSize(DiffButtonW, DiffButtonH);
+	mediumButton->setFixedSize(DiffButtonW, DiffButtonH);
+	hardButton->setFixedSize(DiffButtonW, DiffButtonH);
 
 	// Connect button signals to slots
 	connect(easyButton, &QPushButton::clicked, this, &Wordle::onEasyClicked);
@@ -38,13 +38,13 @@ void Wordle::SetUpSelectionScreen()
 	// Create labels for legend
 	QLabel* label1 = new QLabel("W", this);
 	label1->setStyleSheet(DEFAULT_LABEL);
-	label1->setFixedSize(50, 50);
+	label1->setFixedSize(LabelDimension, LabelDimension);
 	QLabel* label2 = new QLabel("W", this);
 	label2->setStyleSheet(CORRECT_LETTER_LABEL);
-	label2->setFixedSize(50, 50);
+	label2->setFixedSize(LabelDimension, LabelDimension);
 	QLabel* label3 = new QLabel("W", this);
 	label3->setStyleSheet(CORRECT_POSITION_LABEL);
-	label3->setFixedSize(50, 50);
+	label3->setFixedSize(LabelDimension, LabelDimension);
 
 	// Create descriptions for legend labels
 	QLabel* description1 = new QLabel("Wrong Letter", this);
@@ -57,22 +57,16 @@ void Wordle::SetUpSelectionScreen()
 	QGridLayout* label1Layout = new QGridLayout;
 	label1Layout->addWidget(label1, 0, 0);
 	label1Layout->addWidget(description1, 0, 1);
-	label1Layout->setColumnStretch(0, 1);
-	label1Layout->setColumnStretch(1, 1);
 	labelsLayout->addLayout(label1Layout);
 
 	QGridLayout* label2Layout = new QGridLayout;
 	label2Layout->addWidget(label2, 0, 0);
 	label2Layout->addWidget(description2, 0, 1);
-	label2Layout->setColumnStretch(0, 1);
-	label2Layout->setColumnStretch(1, 1);
 	labelsLayout->addLayout(label2Layout);
 
 	QGridLayout* label3Layout = new QGridLayout;
 	label3Layout->addWidget(label3, 0, 0);
 	label3Layout->addWidget(description3, 0, 1);
-	label3Layout->setColumnStretch(0, 1);
-	label3Layout->setColumnStretch(1, 1);
 	labelsLayout->addLayout(label3Layout);
 
 	// Create layout for difficulty selection buttons
@@ -109,9 +103,9 @@ void Wordle::SetUpSelectionScreen()
 	setCentralWidget(centralWidget);
 }
 
-void Wordle::SetUpGame(int difficulty)
+void Wordle::SetUpGame(Difficulty diff)
 {
-	m_newGame = new Game(difficulty);
+	m_newGame = new Game(diff);
 
 	m_letterGrid = new KeyboardGrid;
 
@@ -122,7 +116,7 @@ void Wordle::SetUpGame(int difficulty)
 
 	// Set the size of the main window
 	int gridSize = m_customGrid->width();
-	QSize finalSize = QSize(qMax(800, gridSize), 600);
+	QSize finalSize = QSize(qMax(WindowWidth, gridSize), WindowHeight);
 	setFixedSize(finalSize);
 
 	// Create a layout for the custom grid
@@ -165,17 +159,17 @@ void Wordle::onExitTriggered()
 
 void Wordle::onEasyClicked()
 {
-	SetUpGame(4);
+	SetUpGame(Easy);
 }
 
 void Wordle::onMediumClicked()
 {
-	SetUpGame(6);
+	SetUpGame(Medium);
 }
 
 void Wordle::onHardClicked()
 {
-	SetUpGame(8);
+	SetUpGame(Hard);
 }
 
 

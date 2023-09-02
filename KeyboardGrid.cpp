@@ -22,7 +22,7 @@ void KeyboardGrid::createButtons()
 		QLabel* label = new QLabel(c);
 		m_letterLabels.append(label);
 		m_layout->addWidget(label, row, col);
-		label->setFixedSize(40, 40);
+		label->setFixedSize(WordleConstants::KeyDimension, WordleConstants::KeyDimension);
 		label->setAlignment(Qt::AlignCenter);
 		label->setStyleSheet(AVAILABLE_LETTER_LABEL);
 

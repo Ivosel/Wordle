@@ -8,6 +8,7 @@
 #include "KeyboardGrid.h"
 #include "GuessingGrid.h"
 #include "Styles.h"
+#include "Constants.h"
 
 class Wordle : public QMainWindow
 {
@@ -26,7 +27,7 @@ private slots:
 
 private:
 	void SetUpSelectionScreen();
-	void SetUpGame(int difficulty);
+	void SetUpGame(WordleConstants::Difficulty diff);
 	void CreateButtons();
 
 	Ui::WordleClass ui;

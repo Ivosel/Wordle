@@ -1,18 +1,20 @@
 #include "GuessingGrid.h"
 
+using namespace WordleConstants;
+
 GuessingGrid::GuessingGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent)
 	: QWidget(parent), m_gameInstance(gameInstance), m_letterGrid(letterGrid), m_numColumns(numColumns),
-	m_numRows(6), m_currentRow(0), m_currentCol(0)
+	m_numRows(DefaultChances), m_currentRow(0), m_currentCol(0)
 {
 	m_layout = new QGridLayout(this);
 	m_labels.resize(m_numRows, std::vector<QLabel*>(m_numColumns));
 	createLabels();
 
 	// Set the size of GuessingGrid widget
-	int totalWidth = m_numColumns * 60;
+	int totalWidth = m_numColumns * (LabelDimension + GuessLabelsHspacing * 2);
 	setFixedWidth(totalWidth);
-	m_layout->setHorizontalSpacing(5);
-	m_layout->setVerticalSpacing(15);
+	m_layout->setHorizontalSpacing(GuessLabelsHspacing);
+	m_layout->setVerticalSpacing(GuessLabelsVspacing);
 
 	setLayout(m_layout);
 }
@@ -27,7 +29,7 @@ void GuessingGrid::createLabels()
 		for (int col = 0; col < m_numColumns; ++col) {
 			QLabel* label = new QLabel("");
 			label->setStyleSheet(DEFAULT_LABEL);
-			label->setFixedSize(50, 50);
+			label->setFixedSize(LabelDimension, LabelDimension);
 			label->setAlignment(Qt::AlignCenter);
 			m_labels[row][col] = label;
 			m_layout->addWidget(label, row, col);
@@ -125,7 +127,7 @@ void GuessingGrid::keyPressEvent(QKeyEvent* event)
 		case Game::LastChanceWrongGuess: // Set the dialog for player defeat
 			m_letterGrid->updateButtons(guess);
 			updateLabelBackgroundColors(guess);
-			if (m_currentRow == 5) {
+			if (m_currentRow == LastRow) {
 				msgBox.setText("Start a new game?");
 				msgBox.setWindowTitle("Better luck next time");
 				reply = msgBox.exec();

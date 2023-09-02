@@ -99,6 +99,7 @@
     <QtMoc Include="KeyboardGrid.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Styles.h" />
   </ItemGroup>

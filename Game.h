@@ -6,6 +6,7 @@
 #include <QTextStream>
 #include <QRandomGenerator>
 #include <QTime>
+#include "Constants.h"
 
 class Game
 {
@@ -16,9 +17,9 @@ public:
 		InvalidGuess
 	};
 
-	Game(int difficulty);
+	Game(WordleConstants::Difficulty diff);
 	~Game();
-	void selectWord(int difficulty);
+	void selectWord(WordleConstants::Difficulty diff);
 	GuessResult checkGuess(const QString& guess);
 	QString m_selectedWord;
 

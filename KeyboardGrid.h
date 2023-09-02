@@ -4,6 +4,7 @@
 #include <QGridLayout>
 #include <Qlabel>
 #include "Styles.h"
+#include "Constants.h"
 
 class KeyboardGrid : public QWidget
 {
