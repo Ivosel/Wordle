@@ -33,7 +33,6 @@ private:
 	void handleLastChanceWrongGuess(QString guess);
 	void handleWrongGuess(QString guess);
 	void handleInvalidGuess();
-	void updateFocus();
 
 	QLabel* m_leftInvalidWord;
 	QLabel* m_rightInvalidWord;

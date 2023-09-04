@@ -125,7 +125,7 @@ void GuessingGrid::handleEnterKey()
 		if (m_currentRow == LastRow) {
 			handleLastChanceWrongGuess(guess);
 		}
-		handleWrongGuess(guess);
+		else handleWrongGuess(guess);
 		break;
 
 	case Game::InvalidGuess:
@@ -182,7 +182,7 @@ void GuessingGrid::handleLastChanceWrongGuess(QString guess)
 	msgBox.setDefaultButton(QMessageBox::Yes);
 	msgBox.setButtonText(QMessageBox::No, UIStrings::GameEndNoButton);
 
-	msgBox.setText(UIStrings::GameEndQuestion);
+	msgBox.setText(QString("<p align='center'>%1<br>\"%2\"<br>%3</p>").arg(UIStrings::SelectedWord, m_gameInstance->m_selectedWord.toUpper(), UIStrings::GameEndQuestion));
 	msgBox.setWindowTitle(UIStrings::Defeat);
 
 	int reply = msgBox.exec();
@@ -205,14 +205,6 @@ void GuessingGrid::handleWrongGuess(QString guess)
 void GuessingGrid::handleInvalidGuess() {
 	m_leftInvalidWord->setText(UIStrings::InvalidWord);
 	m_rightInvalidWord->setText(UIStrings::InvalidWord);
-}
-
-void GuessingGrid::updateFocus()
-{
-	if (m_currentRow < m_labels.size() && m_currentCol < m_labels[0].size()) {
-		QLabel* nextLabel = m_labels[m_currentRow][m_currentCol];
-		nextLabel->setFocus();
-	}
 }
 
 void GuessingGrid::updateLabelBackgroundColors(const QString& guess) {

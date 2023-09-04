@@ -19,6 +19,7 @@ namespace UIStrings {
 	const QString KeyboardLetters = "QWERTZUIOPASDFGHJKLYXCVBNM";
 	const QString GameEndNoButton = "Quit";
 	const QString GameEndQuestion = "Start a new game?";
+	const QString SelectedWord = "The word was:";
 	const QString Victory = "Congratulations!";
 	const QString Defeat = "Better luck next time";
 }
