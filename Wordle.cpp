@@ -112,19 +112,24 @@ void Wordle::SetUpGame(Difficulty diff)
 
 	m_letterGrid = new KeyboardGrid;
 
+	QLabel* leftInvalidWordLabel = new QLabel(this);
+	QLabel* rightInvalidWordLabel = new QLabel(this);
+
 	// Create an instance of GuessingGrid and connect signals from the grids msgBox to slots
-	m_customGrid = new GuessingGrid(m_newGame, m_letterGrid, m_newGame->m_selectedWord.length());
+	m_customGrid = new GuessingGrid(leftInvalidWordLabel, rightInvalidWordLabel, m_newGame, m_letterGrid, m_newGame->m_selectedWord.length());
 	connect(m_customGrid, &GuessingGrid::yesClicked, this, &Wordle::onNewGameTriggered);
 	connect(m_customGrid, &GuessingGrid::noClicked, this, &Wordle::onExitTriggered);
 
 	// Set the size of the main window
 	int gridSize = m_customGrid->width();
-	QSize finalSize = QSize(qMax(WindowWidth, gridSize), WindowHeight);
+	QSize finalSize = QSize(qMax(WindowWidth, gridSize + (InvalidWord * 2)), WindowHeight);
 	setFixedSize(finalSize);
 
 	// Create a layout for the custom grid
-	QVBoxLayout* customGridLayout = new QVBoxLayout;
+	QHBoxLayout* customGridLayout = new QHBoxLayout;
+	customGridLayout->addWidget(leftInvalidWordLabel);
 	customGridLayout->addWidget(m_customGrid);
+	customGridLayout->addWidget(rightInvalidWordLabel);
 	customGridLayout->setAlignment(Qt::AlignCenter);
 
 	// Create a layout for the used letters grid

@@ -1,5 +1,11 @@
 #pragma once
 
+#define INVALID_WORD_LABEL R"(font-family: Courier, monospace; 
+						font-weight: 400;
+						text-transform: uppercase; 
+						color: red; 
+						font-size: 20px;)"
+
 #define DEFAULT_LABEL R"(font-family: Courier, monospace; 
 						font-weight: 700; 
 						border: 1px solid black; 

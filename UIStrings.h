@@ -6,6 +6,7 @@
 #include <QString>
 
 namespace UIStrings {
+	const QString InvalidWord = "Word not found!";
 	const QString EasyButton = "Easy (up to 4 letters)";
 	const QString MediumButton = "Medium (5-6 letters)";
 	const QString HardButton = "Hard (7 or more letters)";

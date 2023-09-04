@@ -18,4 +18,5 @@ namespace WordleConstants {
 	constexpr int KeyDimension = 40;
 	constexpr int DefaultChances = 6;
 	constexpr int LastRow = 5;
+	constexpr int InvalidWord = 230;
 }

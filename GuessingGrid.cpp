@@ -2,10 +2,13 @@
 
 using namespace WordleConstants;
 
-GuessingGrid::GuessingGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent)
-	: QWidget(parent), m_gameInstance(gameInstance), m_letterGrid(letterGrid), m_numColumns(numColumns),
-	m_numRows(DefaultChances), m_currentRow(0), m_currentCol(0)
+GuessingGrid::GuessingGrid(QLabel* leftInvalidWord, QLabel* rightInvalidWord, Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent)
+	: QWidget(parent), m_leftInvalidWord(leftInvalidWord), m_rightInvalidWord(rightInvalidWord), m_gameInstance(gameInstance), m_letterGrid(letterGrid),
+	m_numColumns(numColumns), m_numRows(DefaultChances), m_currentRow(0), m_currentCol(0)
 {
+	leftInvalidWord->setStyleSheet(INVALID_WORD_LABEL);
+	rightInvalidWord->setStyleSheet(INVALID_WORD_LABEL);
+
 	m_layout = new QGridLayout(this);
 	m_labels.resize(m_numRows, std::vector<QLabel*>(m_numColumns));
 	createLabels();
@@ -78,6 +81,10 @@ void GuessingGrid::handleLetterKey(QString key)
 
 void GuessingGrid::handleBackspaceKey()
 {
+	m_leftInvalidWord->clear();
+	m_rightInvalidWord->clear();
+
+
 	if (m_currentRow < m_labels.size() && m_currentCol >= 0) {
 		QLabel* currentLabel = m_labels[m_currentRow][m_currentCol];
 
@@ -108,17 +115,22 @@ void GuessingGrid::handleEnterKey()
 
 	QString guess = createGuessFromLabels();
 
-	if (m_gameInstance->checkGuess(guess) == Game::CorrectGuess) {
-		handleCorrectGuess(guess);
-	}
-	else if (m_currentRow == LastRow) {
-		handleLastChanceWrongGuess(guess);
-	}
-	else {
-		handleWrongGuess(guess);
-		updateFocus();
-	}
+	switch (m_gameInstance->checkGuess(guess)) {
 
+	case Game::CorrectGuess:
+		handleCorrectGuess(guess);
+		break;
+
+	case Game::WrongGuess:
+		if (m_currentRow == LastRow) {
+			handleLastChanceWrongGuess(guess);
+		}
+		handleWrongGuess(guess);
+		break;
+
+	case Game::InvalidGuess:
+		handleInvalidGuess();
+	}
 }
 
 QString GuessingGrid::createGuessFromLabels()
@@ -160,10 +172,6 @@ void GuessingGrid::handleCorrectGuess(QString guess)
 
 void GuessingGrid::handleLastChanceWrongGuess(QString guess)
 {
-	if (m_gameInstance->checkGuess(guess) == Game::InvalidGuess) {
-		return;
-	}
-
 	m_letterGrid->updateButtons(guess);
 	updateLabelBackgroundColors(guess);
 
@@ -188,13 +196,15 @@ void GuessingGrid::handleLastChanceWrongGuess(QString guess)
 
 void GuessingGrid::handleWrongGuess(QString guess)
 {
-	if (m_gameInstance->checkGuess(guess) == Game::InvalidGuess) {
-		return;
-	}
 	m_letterGrid->updateButtons(guess);
 	updateLabelBackgroundColors(guess);
 	m_currentRow++;
 	m_currentCol = 0;
+}
+
+void GuessingGrid::handleInvalidGuess() {
+	m_leftInvalidWord->setText(UIStrings::InvalidWord);
+	m_rightInvalidWord->setText(UIStrings::InvalidWord);
 }
 
 void GuessingGrid::updateFocus()

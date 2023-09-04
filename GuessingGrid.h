@@ -14,7 +14,7 @@ class GuessingGrid : public QWidget
 	Q_OBJECT
 
 public:
-	GuessingGrid(Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent = nullptr);
+	GuessingGrid(QLabel* leftInvalidWord, QLabel* rightInvalidWord, Game* gameInstance, KeyboardGrid* letterGrid, int numColumns, QWidget* parent = nullptr);
 	~GuessingGrid();
 
 signals:
@@ -32,8 +32,11 @@ private:
 	void handleCorrectGuess(QString guess);
 	void handleLastChanceWrongGuess(QString guess);
 	void handleWrongGuess(QString guess);
+	void handleInvalidGuess();
 	void updateFocus();
 
+	QLabel* m_leftInvalidWord;
+	QLabel* m_rightInvalidWord;
 	QGridLayout* m_layout;
 	Game* m_gameInstance;
 	KeyboardGrid* m_letterGrid;
