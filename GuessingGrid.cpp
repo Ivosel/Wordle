@@ -144,10 +144,10 @@ void GuessingGrid::handleCorrectGuess(QString guess)
 	msgBox.setIcon(QMessageBox::Question);
 	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 	msgBox.setDefaultButton(QMessageBox::Yes);
-	msgBox.setButtonText(QMessageBox::No, "Quit");
+	msgBox.setButtonText(QMessageBox::No, UIStrings::GameEndNoButton);
 
-	msgBox.setText("Start a new game?");
-	msgBox.setWindowTitle("Congratulations!");
+	msgBox.setText(UIStrings::GameEndQuestion);
+	msgBox.setWindowTitle(UIStrings::Victory);
 
 	int reply = msgBox.exec();
 	if (reply == QMessageBox::Yes) {
@@ -172,10 +172,10 @@ void GuessingGrid::handleLastChanceWrongGuess(QString guess)
 	msgBox.setIcon(QMessageBox::Question);
 	msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 	msgBox.setDefaultButton(QMessageBox::Yes);
-	msgBox.setButtonText(QMessageBox::No, "Quit");
+	msgBox.setButtonText(QMessageBox::No, UIStrings::GameEndNoButton);
 
-	msgBox.setText("Start a new game?");
-	msgBox.setWindowTitle("Better luck next time");
+	msgBox.setText(UIStrings::GameEndQuestion);
+	msgBox.setWindowTitle(UIStrings::Defeat);
 
 	int reply = msgBox.exec();
 	if (reply == QMessageBox::Yes) {

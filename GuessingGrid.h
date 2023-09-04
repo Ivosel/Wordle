@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "KeyboardGrid.h"
 #include "Constants.h"
+#include "UIStrings.h"
 
 class GuessingGrid : public QWidget
 {

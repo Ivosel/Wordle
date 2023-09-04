@@ -5,6 +5,7 @@
 #include <Qlabel>
 #include "Styles.h"
 #include "Constants.h"
+#include "UIStrings.h"
 
 class KeyboardGrid : public QWidget
 {

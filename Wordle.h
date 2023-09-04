@@ -9,6 +9,7 @@
 #include "GuessingGrid.h"
 #include "Styles.h"
 #include "Constants.h"
+#include "UIStrings.h"
 
 class Wordle : public QMainWindow
 {

@@ -23,9 +23,9 @@ void Wordle::SetUpSelectionScreen()
 	setFixedSize(QSize(WindowWidth, WindowHeight));
 
 	// Create buttons for selecting game difficulty
-	QPushButton* easyButton = new QPushButton("Easy (up to 4 letters)", this);
-	QPushButton* mediumButton = new QPushButton("Medium (5-6 letters)", this);
-	QPushButton* hardButton = new QPushButton("Hard (7 or more letters)", this);
+	QPushButton* easyButton = new QPushButton(UIStrings::EasyButton, this);
+	QPushButton* mediumButton = new QPushButton(UIStrings::MediumButton, this);
+	QPushButton* hardButton = new QPushButton(UIStrings::HardButton, this);
 	easyButton->setFixedSize(DiffButtonW, DiffButtonH);
 	mediumButton->setFixedSize(DiffButtonW, DiffButtonH);
 	hardButton->setFixedSize(DiffButtonW, DiffButtonH);
@@ -39,17 +39,20 @@ void Wordle::SetUpSelectionScreen()
 	QLabel* label1 = new QLabel("W", this);
 	label1->setStyleSheet(DEFAULT_LABEL);
 	label1->setFixedSize(LabelDimension, LabelDimension);
+	label1->setAlignment(Qt::AlignCenter);
 	QLabel* label2 = new QLabel("W", this);
 	label2->setStyleSheet(CORRECT_LETTER_LABEL);
 	label2->setFixedSize(LabelDimension, LabelDimension);
+	label2->setAlignment(Qt::AlignCenter);
 	QLabel* label3 = new QLabel("W", this);
 	label3->setStyleSheet(CORRECT_POSITION_LABEL);
 	label3->setFixedSize(LabelDimension, LabelDimension);
+	label3->setAlignment(Qt::AlignCenter);
 
 	// Create descriptions for legend labels
-	QLabel* description1 = new QLabel("Wrong Letter", this);
-	QLabel* description2 = new QLabel("Right Letter", this);
-	QLabel* description3 = new QLabel("Right Letter And Position", this);
+	QLabel* description1 = new QLabel(UIStrings::WrongLetter, this);
+	QLabel* description2 = new QLabel(UIStrings::CorrectLetter, this);
+	QLabel* description3 = new QLabel(UIStrings::CorrPosLetter, this);
 
 	// Create layouts for legend labels and descriptions
 	QVBoxLayout* labelsLayout = new QVBoxLayout;
@@ -81,9 +84,9 @@ void Wordle::SetUpSelectionScreen()
 	mainLayout->addLayout(buttonsLayout);
 
 	// Create labels and layout for sections (legent, title, difficulty)
-	QLabel* legendLabel = new QLabel("Legend:", this);
-	QLabel* titleLabel = new QLabel("WORDLE", this);
-	QLabel* selectDifficultyLabel = new QLabel("Select Game Difficulty:", this);
+	QLabel* legendLabel = new QLabel(UIStrings::Legend, this);
+	QLabel* titleLabel = new QLabel(UIStrings::Title, this);
+	QLabel* selectDifficultyLabel = new QLabel(UIStrings::GameDifficulty, this);
 
 	QHBoxLayout* descriptionLayout = new QHBoxLayout;
 	descriptionLayout->addWidget(legendLabel, 0, Qt::AlignBottom);

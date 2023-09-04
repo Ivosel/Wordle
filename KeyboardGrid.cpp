@@ -15,7 +15,7 @@ void KeyboardGrid::createButtons()
 {
 	int row = 0;
 	int col = 0;
-	QString keyboardLetters = "QWERTZUIOPASDFGHJKLYXCVBNM";
+	QString keyboardLetters = UIStrings::KeyboardLetters;
 
 	// Create buttons representing the keyboard, add them to the layout and the button list member
 	for (auto c : keyboardLetters) {
@@ -37,7 +37,7 @@ void KeyboardGrid::createButtons()
 void KeyboardGrid::updateButtons(QString guess)
 {
 	// Update the appearance of the buttons representing the keyboard if they have been used in a player's guess
-	QString keyboardLetters = "qwertzuiopasdfghjklyxcvbnm";
+	QString keyboardLetters = UIStrings::KeyboardLetters.toLower();
 
 	for (int i = 0; i < keyboardLetters.length(); ++i) {
 		if (guess.contains(keyboardLetters[i])) m_letterLabels[i]->setStyleSheet(USED_LETTER_LABEL);
