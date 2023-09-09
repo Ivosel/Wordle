@@ -210,24 +210,33 @@ void GuessingGrid::handleInvalidGuess() {
 void GuessingGrid::updateLabelBackgroundColors(const QString& guess) {
 	const QString selectedWord = m_gameInstance->m_selectedWord.toLower();
 
-	// Iterate the letters of the player's guess and the game's word to update the label appearance in the grid
+	QList<QChar> usedLetters;  // Keep track of used letters
+	QSet<int> usedLabels;  // Keep track of used labels to prevent overwriting
+
+	// First pass: Handle correct letters in correct positions
 	for (int i = 0; i < selectedWord.length(); ++i) {
 		QLabel* label = m_labels[m_currentRow][i];
+		QChar selectedChar = selectedWord.at(i);
+		QChar guessedChar = guess.at(i).toLower();
+		usedLetters.append(selectedChar);
 
-		if (i < guess.length()) {
-			QChar selectedChar = selectedWord.at(i);
-			QChar guessedChar = guess.at(i).toLower();
+		if (guessedChar == selectedChar && usedLetters.contains(guessedChar)) {
+			label->setAutoFillBackground(true);
+			label->setStyleSheet(CORRECT_POSITION_LABEL);
+			usedLetters.removeOne(guessedChar);
+			usedLabels.insert(i);
+		}
+	}
 
-			if (guessedChar == selectedChar) {
-				// Correct letter in correct position
-				label->setAutoFillBackground(true);
-				label->setStyleSheet(CORRECT_POSITION_LABEL);
-			}
-			else if (selectedWord.contains(guessedChar)) {
-				// Correct letter in wrong position
-				label->setAutoFillBackground(true);
-				label->setStyleSheet(CORRECT_LETTER_LABEL);
-			}
+	// Second pass: Handle correct letters in wrong positions
+	for (int i = 0; i < selectedWord.length() && i < guess.length(); ++i) {
+		QLabel* label = m_labels[m_currentRow][i];
+		QChar guessedChar = guess.at(i).toLower();
+
+		if (selectedWord.contains(guessedChar) && usedLetters.contains(guessedChar) && !usedLabels.contains(i)) {
+			label->setAutoFillBackground(true);
+			label->setStyleSheet(CORRECT_LETTER_LABEL);
+			usedLetters.removeOne(guessedChar);
 		}
 	}
 }

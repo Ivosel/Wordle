@@ -104,6 +104,8 @@ void Wordle::SetUpSelectionScreen()
 	QWidget* centralWidget = new QWidget(this);
 	centralWidget->setLayout(finalLayout);
 	setCentralWidget(centralWidget);
+
+	ui.actionNew_Game->setEnabled(false);
 }
 
 void Wordle::SetUpGame(Difficulty diff)
@@ -148,6 +150,7 @@ void Wordle::SetUpGame(Difficulty diff)
 	setCentralWidget(centralWidget);
 
 	m_customGrid->setFocus();
+	ui.actionNew_Game->setEnabled(true);
 }
 
 void Wordle::onNewGameTriggered()
