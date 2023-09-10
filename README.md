@@ -26,7 +26,8 @@ A desktop (Windows) version of the [Wordle](https://www.nytimes.com/games/wordle
 - Qt6Widgets.dll
 - Qt6Gui.dll
 - Qt6Core.dll
-- Works with different older versions of the above DLLs 
+- Works with different older versions of the above DLLs
+- Store the DLLs and the WordSet.txt file in the same location/folder as Wordle.exe
 ## Setup instructions (Visual Studio)
 1) If you dont have QT installed, go [Here](https://www.qt.io/offline-installers) and download 6.5.2 version for Windows
 2) In Visual Studio go to the Extensions tab and select Manage Extensions
