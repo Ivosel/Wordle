@@ -3,7 +3,7 @@
 KeyboardGrid::KeyboardGrid(QWidget* parent)
 	: QWidget(parent)
 {
-	m_layout = new QGridLayout(this);
+	m_layout = new QVBoxLayout(this);
 	createButtons();
 	setLayout(m_layout);
 }
@@ -13,25 +13,36 @@ KeyboardGrid::~KeyboardGrid()
 
 void KeyboardGrid::createButtons()
 {
-	int row = 0;
-	int col = 0;
 	QString keyboardLetters = UIStrings::KeyboardLetters;
+	QHBoxLayout* rowLayout = new QHBoxLayout;
 
-	// Create buttons representing the keyboard, add them to the layout and the button list member
+	// Iterate through the letters of the keyboard and create rows resembling the keyboard layout
 	for (auto c : keyboardLetters) {
 		QLabel* label = new QLabel(c);
 		m_letterLabels.append(label);
-		m_layout->addWidget(label, row, col);
 		label->setFixedSize(WordleConstants::KeyDimension, WordleConstants::KeyDimension);
 		label->setAlignment(Qt::AlignCenter);
 		label->setStyleSheet(AVAILABLE_LETTER_LABEL);
+		rowLayout->addWidget(label);
 
-		col++;
-		if (label->text() == "P" || label->text() == "L") {
-			col = 0;
-			row++;
+		if (label->text() == "P") {
+			m_layout->addLayout(rowLayout);
+			// Start a new row and add spacing for shorter next row
+			rowLayout = new QHBoxLayout;
+			rowLayout->addSpacerItem(new QSpacerItem(WordleConstants::KeyDimension / 2, WordleConstants::KeyDimension, QSizePolicy::Fixed, QSizePolicy::Fixed));
+		}
+		else if (label->text() == "L") {
+			rowLayout->addSpacerItem(new QSpacerItem(WordleConstants::KeyDimension / 2, WordleConstants::KeyDimension, QSizePolicy::Fixed, QSizePolicy::Fixed));
+			m_layout->addLayout(rowLayout);
+			// Start a new row and add spacing for shorter next row
+			rowLayout = new QHBoxLayout;
+			rowLayout->addSpacerItem(new QSpacerItem((WordleConstants::KeyDimension), WordleConstants::KeyDimension, QSizePolicy::Fixed, QSizePolicy::Fixed));
 		}
 	}
+
+	// Add the last row
+	rowLayout->addSpacerItem(new QSpacerItem((WordleConstants::KeyDimension / 2) * 5, WordleConstants::KeyDimension, QSizePolicy::Fixed, QSizePolicy::Fixed));
+	m_layout->addLayout(rowLayout);
 }
 
 void KeyboardGrid::updateButtons(QString guess)

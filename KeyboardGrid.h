@@ -19,6 +19,6 @@ public:
 private:
 	void createButtons();
 
-	QGridLayout* m_layout;
+	QVBoxLayout* m_layout;
 	QList<QLabel*> m_letterLabels;
 };
