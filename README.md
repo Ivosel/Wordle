@@ -1,7 +1,7 @@
 # Wordle
 A desktop (Windows) version of the [Wordle](https://www.nytimes.com/games/wordle/index.html) game.
 ## About
-- A C++ school project designed in visual studion using QT library
+- A C++ school project designed in visual studio using QT library
 ## Gameplay
 - At the oppening screen select the desired dificulty
 - The game will select a word and give you 6 chances to guess that word
